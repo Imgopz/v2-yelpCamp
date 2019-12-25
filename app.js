@@ -20,6 +20,7 @@ app.get("/", function(req, res){
 	res.render("landing");
 });
 
+
 //Show all CGs
 
 app.get("/campgrounds", function(req, res){	
@@ -51,9 +52,9 @@ app.post("/campgrounds", function(req, res){
 });
 
 //Show form to create new CG
-// app.get("/campgrounds/new", function(req, res){
-// 	res.render("campgrounds/new");
-// });
+app.get("/campgrounds/new", function(req, res){
+	res.render("campgrounds/new");
+});
 		
 app.get("/campgrounds/:id", function(req, res){
 	Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
