@@ -19,6 +19,12 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 seedDB();
 
+// binding user details in every single route using below middleware function
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+});
+
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
 	secret: "He and She made a good pair",
@@ -43,7 +49,7 @@ app.get("/campgrounds", function(req, res){
 		if(err){
 			console.log(err);
 		}else{
-			res.render("campgrounds/index", {campgrounds: allCampgrounds});		
+			res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user});		
 		}
 	})
 });
