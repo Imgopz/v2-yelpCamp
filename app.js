@@ -19,12 +19,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 seedDB();
 
-// binding user details in every single route using below middleware function
-app.use(function(req, res, next){
-	res.locals.currentUser = req.user;
-	next();
-});
-
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
 	secret: "He and She made a good pair",
@@ -36,6 +30,14 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+
+// binding user details in every single route using below middleware function
+// it should come after passport serializer and desreializer
+app.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+});
 
 app.get("/", function(req, res){
 	res.render("landing");
@@ -49,7 +51,7 @@ app.get("/campgrounds", function(req, res){
 		if(err){
 			console.log(err);
 		}else{
-			res.render("campgrounds/index", {campgrounds: allCampgrounds, currentUser: req.user});		
+			res.render("campgrounds/index", {campgrounds: allCampgrounds});		
 		}
 	})
 });
