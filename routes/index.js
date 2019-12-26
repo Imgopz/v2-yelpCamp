@@ -3,6 +3,7 @@ var express 	 = require("express"),
 	passport     = require("passport"),
 	User         = require("../models/user");
 
+// route for the landing page
 router.get("/", function(req, res){
 	res.render("landing");
 });
@@ -10,6 +11,7 @@ router.get("/", function(req, res){
 //===========
 //AUTH ROUTES
 //===========
+// Route to show register page
 router.get("/register", function(req, res){
 	res.render("register");
 });

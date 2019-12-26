@@ -43,8 +43,9 @@ app.use(function(req, res, next){
 });
 
 app.use(indexRoutes);
-app.use(campgroundRoutes);
-app.use(commentroutes);
+app.use("/campgrounds", campgroundRoutes);
+app.use("/campgrounds/:id/comments", commentroutes); 
+//router = express.Router({mergeParams: true}) needs to be defined the modules file
 
 app.listen(3000, function(){
 	console.log("YelpCamp has been started and running on port 3000..!");

@@ -1,8 +1,9 @@
 var express 	 = require("express"),
-	router 		 = express.Router(),
+	router 		 = express.Router({mergeParams: true}),
 	Campground   = require("../models/campground");
+
 //Show all CGs
-router.get("/campgrounds", function(req, res){	
+router.get("/", function(req, res){	
 	Campground.find({}, function(err, allCampgrounds){
 		if(err){
 			console.log(err);
@@ -13,7 +14,7 @@ router.get("/campgrounds", function(req, res){
 });
 
 // Create - add new CG to db
-router.post("/campgrounds", function(req, res){
+router.post("/", function(req, res){
 	var name = req.body.name;
 	var image = req.body.image;
 	var description = req.body.description;
@@ -31,11 +32,11 @@ router.post("/campgrounds", function(req, res){
 });
 
 //Show form to create new CG
-router.get("/campgrounds/new", function(req, res){
+router.get("/new", function(req, res){
 	res.render("campgrounds/new");
 });
 		
-router.get("/campgrounds/:id", function(req, res){
+router.get("/:id", function(req, res){
 	Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
 		if(err){
 			console.log(err);
