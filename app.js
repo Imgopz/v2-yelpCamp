@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //Linking css directory to the mail app
 app.use(express.static(__dirname + "/public"));
-seedDB();
+// seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
 app.use(require("express-session")({
