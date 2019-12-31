@@ -52,6 +52,27 @@ router.get("/:id", function(req, res){
 	
 })
 
+// EDIT
+router.get("/:id/edit", function(req, res){
+	Campground.findById(req.params.id, function(err, foundCampground){
+		if(err){
+			res.render("/campgrounds")
+		}else{
+			res.render("campgrounds/edit", {campground: foundCampground});		
+		}
+	})
+})
+// UPDATE
+router.put("/:id", function(req, res){
+	Campground.findByIdAndUpdate(req.params.id, req.body.campground, function(err, updatedCampground){
+		if(err){
+			res.redirect("/campgrounds")
+		}else{
+			res.redirect("/campgrounds/"+ req.params.id);
+		}
+	})
+})
+
 // isLoggedIn is a ud middleware function to keep the session up and running till user press logout
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){

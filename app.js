@@ -4,6 +4,7 @@ var express      = require("express"),
 	mongoose     = require("mongoose"),
 	passport     = require("passport"),
 	LocalStrategy = require("passport-local"),
+	methodOverride= require("method-override"),
 	Campground   = require("./models/campground"),
 	Comment      = require("./models/comment"),
 	User         = require("./models/user"),
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //Linking css directory to the mail app
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 // seedDB(); //seed the database
 
 // PASSPORT CONFIGURATION
@@ -30,6 +32,7 @@ app.use(require("express-session")({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
+
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());

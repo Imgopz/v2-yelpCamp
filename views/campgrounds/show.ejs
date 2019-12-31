@@ -17,6 +17,9 @@
 					<h4><a><%= campground.name %></a></h4>
 					<p><%= campground.description %></p>
 					<em>Created by <%= campground.author.username %></em>
+					<p>
+						<a class="btn btn-warning" href="/campgrounds/<%= campground.id %>/edit">Edit</a>
+					</p>
 					
 				</div>
 			</div>
