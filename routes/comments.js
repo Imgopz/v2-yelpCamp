@@ -39,6 +39,39 @@ router.post("/", isLoggedIn, function(req, res){
 	});
 });
 
+// COMMENTS EDIT ROUTE
+router.get("/:comment_id/edit", function(req, res){
+	Comment.findById(req.params.comment_id, function(err, foundComment){
+		if(err){
+			res.redirect("back");
+		}else{
+			res.render("comments/edit", {campground_id: req.params.id, comment: foundComment}) 
+			// this req.params.id gives campgrounds id which simpifies lots of work 		
+		}	
+	})
+})
+
+// COMMENTS UPDATE ROUTE
+router.put("/:comment_id", function(req, res){
+	Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err, updatedComment){
+		if(err){
+			res.redirect("back");
+		}else{
+			res.redirect("/campgrounds/" + req.params.id );
+		}
+	})
+})
+
+router.delete("/:comment_id", function(req, res){
+	Comment.findByIdAndRemove(req.params.comment_id, function(err){
+		if(err){
+			res.redirect("back");
+		}else{
+			res.redirect("/campgrounds/" + req.params.id);
+		}
+	});
+})
+
 // isLoggedIn is a ud middleware function to keep the session up and running till user press logout
 function isLoggedIn(req, res, next){
 	if(req.isAuthenticated()){

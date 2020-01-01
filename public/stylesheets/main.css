@@ -5,6 +5,10 @@
 	padding: 0;
 }
 
-#delete-form {
+/* #delete-form {
+	display: inline;
+} */
+
+.delete-form {
 	display: inline;
 }
