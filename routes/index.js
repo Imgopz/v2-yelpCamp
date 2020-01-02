@@ -40,8 +40,11 @@ router.get("/login", function(req, res){
 //app.post("/login", middleware, callback)
 router.post("/login", passport.authenticate("local",
 	{
+		successFlash : "Hey, Welcome back",
 		successRedirect: "/campgrounds",
-		failureRedirect: "/login"
+		failureRedirect: "/login",
+		badRequestMessage : 'Missing username or password!',
+    	failureFlash: true
 	}),function(req, res){
 })
 
