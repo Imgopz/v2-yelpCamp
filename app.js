@@ -17,6 +17,8 @@ var commentroutes = require("./routes/comments"),
 
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect("mongodb://localhost:27017/yelp_camp", { useNewUrlParser: true });
+//mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true });
+// set environment variable in heroku, Key as DATABASEURL and Value as your mongodb url
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -54,6 +56,8 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/comments", commentroutes); 
 //router = express.Router({mergeParams: true}) needs to be defined the modules file
 
+//app.listen(process.env.PORT, process.env.IP, function(){
+// please use above method if you doing in herokucd
 app.listen(3000, function(){
 	console.log("YelpCamp has been started and running on port 3000..!");
 });
