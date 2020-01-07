@@ -4,6 +4,7 @@ var express      = require("express"),
 	mongoose     = require("mongoose"),
 	flash        = require("connect-flash"),
 	passport     = require("passport"),
+	moment       = require("moment"),
 	LocalStrategy = require("passport-local"),
 	methodOverride= require("method-override"),
 	Campground   = require("./models/campground"),
@@ -50,6 +51,8 @@ app.use(function(req, res, next){
 	res.locals.success = req.flash("success");
 	next();
 });
+
+app.locals.moment = moment;
 
 app.use(indexRoutes);
 app.use("/campgrounds", campgroundRoutes);

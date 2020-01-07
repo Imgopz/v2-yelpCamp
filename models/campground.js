@@ -5,6 +5,8 @@ var campgroundSchema = new mongoose.Schema({
 	image: String,
 	price: String,
 	description: String,
+	// created_at: {type: Date, default: Date.now},
+	// updated_at: {type: Date, default: Date.now},
 	author: {
 		id: {
 			type: mongoose.Schema.Types.ObjectId,
@@ -17,5 +19,7 @@ var campgroundSchema = new mongoose.Schema({
 		ref:"Comment"
 	}]
 });
+
+campgroundSchema.set('timestamps', true);
 
 module.exports = mongoose.model("Campground", campgroundSchema);
